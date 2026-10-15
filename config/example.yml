@@ -1,0 +1,49 @@
+# Example da-plus config. Copy to /etc/da-plus/config.yml (mode 0640, root:root).
+# Values follow the plan's section 6. Missing keys mean "infinity" (unlimited).
+version: 1
+
+defaults:
+  profile: basic
+  io_device: /dev/sda          # the disk behind the home directories; check with: lsblk -dno PATH
+
+profiles:
+  basic:
+    cpu_quota: 50%
+    memory_high: 512M
+    memory_max: 768M
+    io_read_bw: 50M
+    io_write_bw: 20M
+    iops_read: 1000
+    iops_write: 500
+    tasks_max: 200
+    # Redis is off in the example. Set enabled: true on a server that has redis-server installed.
+    redis:
+      enabled: false
+      maxmemory: 64M              # must be smaller than memory_max
+      maxmemory_policy: allkeys-lru
+      persistence: off           # off or rdb
+  business:
+    cpu_quota: 100%
+    memory_high: 1G
+    memory_max: 1536M
+    io_read_bw: 100M
+    io_write_bw: 50M
+    iops_read: 3000
+    iops_write: 1500
+    tasks_max: 500
+    redis:
+      enabled: false
+      maxmemory: 256M
+      maxmemory_policy: allkeys-lru
+      persistence: off
+
+# DirectAdmin package name -> profile
+package_map:
+  Starter: basic
+  Business: business
+
+users:
+  fred:
+    profile: business
+    overrides:
+      memory_max: 2G
