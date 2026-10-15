@@ -54,12 +54,6 @@ It enforces memory, CPU, block I/O, and process limits directly at the Linux use
 
 ## Installation & Setup
 
-Clone the repository:
-```bash
-git clone https://github.com/siusun/directadmin-legacy-plus.git
-cd directadmin-legacy-plus/da-plus
-```
-
 ### Option A: Standard Package Install (Recommended)
 
 Install using a dedicated virtual environment to avoid conflicts with system packages:
